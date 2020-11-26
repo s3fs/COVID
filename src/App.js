@@ -9,9 +9,11 @@ const App = () => {
 
   const url = 'https://cors-anywhere.herokuapp.com/https://warm-coast-62507.herokuapp.com/api/entries'
 
-  axios
+  useEffect(() => {
+    axios
     .get(url)
     .then(r => setData(r.data))
+  }, [])
 
 
   return (
