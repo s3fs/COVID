@@ -1,24 +1,30 @@
 import './App.css';
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import Card from './components/Card'
 
 const App = () => {
   const [ data, setData ] = useState([])
-
+  let fKey = 0
 
   const url = 'https://cors-anywhere.herokuapp.com/https://warm-coast-62507.herokuapp.com/api/entries'
 
   useEffect(() => {
-    console.log('useeff in use')
+    console.log('fetching data...')
     axios
     .get(url)
     .then(r => setData(r.data))
+    .then(() => console.log('data fetched and set.'))
+    .catch(e => console.log(e, 'err fetching'))
   }, [])
 
   return (
     <div>
-      <p>Hello world</p>
-      <ul>{data.map(i => <li key={Math.random(999)}>{i['province'] !== '' ? i['province'] : null} {i['country']} {i.cases.map(i => Object.entries(i).map(([ key, val ]) => <span>{key}, <b>{val}</b> </span>))}</li>)}</ul>
+      <section className={'header'}>
+        <p>Hello world</p>
+        <input type={'search'} placeholder={'ass'}></input>
+      </section>
+      <ul className={'noteContainer'}>{data.map(i => <Card key={fKey += 1} i={i}/>)}</ul>
     </div>
   )
 }
