@@ -2,6 +2,7 @@ import './App.css';
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Card from './components/Card'
+import Screen from './components/Screen'
 
 const App = () => {
   const [ data, setData ] = useState([])
@@ -18,15 +19,21 @@ const App = () => {
     .catch(e => console.log(e, 'err fetching'))
   }, [])
 
-  return (
-    <div>
-      <section className={'header'}>
-        <p>Hello world</p>
-        <input type={'search'} placeholder={'ass'}></input>
-      </section>
-      <ul className={'noteContainer'}>{data.map(i => <Card key={fKey += 1} i={i}/>)}</ul>
-    </div>
-  )
+  if (data.length === 0) {
+    return (
+      <Screen />
+    )
+  } else {
+    return (
+      <div>
+        <section className={'header'}>
+          <p>Hello world</p>
+          <input type={'search'} placeholder={'ass'}></input>
+        </section>
+        <ul className={'noteContainer'}>{data.map(i => <Card key={fKey += 1} i={i}/>)}</ul>
+      </div>
+    )
+  }
 }
 
 export default App;

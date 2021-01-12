@@ -11,7 +11,7 @@ const Card = ({ i }) => {
 
     return (
             <li className={`liNote ${class1}`} key={Math.random(999)}>
-                <div className={'liProvince'}>{i['province'] !== '' ? mergeFn(i['province']) : null}</div> 
+                <div className={`liProvince ${i['province'] === '' ? 'noDisplay' : undefined}`}>{mergeFn(i['province'])}</div> 
                 <div className={'liCountry'}>{i['country']}</div>
                 {i.cases.map(i => Object.entries(i).map(([ key, val ]) => <div className={'liCases'}><span className={'liCasesDate'}>{key}</span><span className={'liCasesNumber'}>{val}</span></div>))}
                 <div className={'liStatus'}>{i['status']}</div>

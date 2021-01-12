@@ -4,9 +4,41 @@
 }
 body {
     background-color: #F0F4FA;
+    box-sizing: border-box;
+}
+html {
+    box-sizing: border-box;
 }
 div {
     position: relative;
+}
+.noDisplay {
+    display: none;
+}
+.screen {
+    box-sizing: border-box;
+    /*overflow: hidden; /*something to do with parent el being relative but that didnt seem to work*/
+    position: absolute;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    background-color: #F0F4FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.screenText {
+    margin-top: 1rem;
+    color: grey;
+}
+.screenSVG {
+    position: relative;
+    margin-top: 20rem;
+    height: 8rem;
+    fill: grey;
+    animation: pcl 2.5s linear forwards infinite;
 }
 .header {
     display: flex;
@@ -27,13 +59,12 @@ div {
 .liNote {
     font-size: 1rem;
     border-radius: 1rem;
-    padding: 0.5rem;
+    padding: 1rem;
     position: relative;
     box-shadow: 1rem 1rem 2rem 0rem gray;
     list-style-type: none;
     display: grid;
-    grid-auto-flow: dense;
-    align-items: start;
+    align-items: center;
 }
 .liNote > .liCases > .liCasesDate {
     display: none;
@@ -47,6 +78,7 @@ div {
 .liCountry, .liProvince {
     font-weight: bold;
     font-size: 1.2em;
+    word-wrap: normal;
 }
 .liCases {
     display: flex;
@@ -58,9 +90,15 @@ div {
     grid-row: span 2;
 }
 .liNote:nth-child(8n) {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     grid-column: span 3;
     grid-row: span 2;
+}
+.liNote:nth-child(8n) > .liStatus {
+    display: block;
+}
+.liNote:nth-child(4n) > .liStatus {
+    display: block;
 }
 .liNoteStable {
     background-color: #fff9b3;
@@ -71,8 +109,27 @@ div {
 .liNoteFalling {
     background-color: #bdffc6;
 }
+@keyframes pcl {
+    0% {
+        fill: #adabab;
+        transform: rotate(0deg);
+    }
+    50% {
+        fill: lightgrey
+    }
+    100% {
+        transform: rotate(360deg);
+        fill: #adabab;
+    }
+}
 @media screen and (max-width: 600px) {
+    :root {
+        font-size: 0.8rem;
+    }
     .noteContainer {
-        grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    }
+    .liNote {
+        padding: 1rem;
     }
 }
