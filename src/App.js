@@ -6,9 +6,15 @@ import Screen from './components/Screen'
 
 const App = () => {
   const [ data, setData ] = useState([])
+  const [ query, setQuery ] = useState('')
+
   let fKey = 0
 
-  const url = 'https://cors-anywhere.herokuapp.com/https://warm-coast-62507.herokuapp.com/api/entries'
+  const url = 'https://warm-coast-62507.herokuapp.com/api/entries'
+
+  const inputChange = (e) => {
+    setQuery(e.target.value)
+  }
 
   useEffect(() => {
     console.log('fetching data...')
@@ -24,13 +30,15 @@ const App = () => {
       <Screen />
     )
   } else {
+    const entriesToShow = query === '' ? data : data.filter(i => new RegExp(query, 'i').test(i.country))
+
     return (
       <div>
         <section className={'header'}>
-          <p>Hello world</p>
-          <input type={'search'} placeholder={'ass'}></input>
+          <p className={'header__title'}>COVID-19 Dashboard</p>
+          <input type={'search'} placeholder={'Enter country name here...'} onChange={inputChange}></input>
         </section>
-        <ul className={'noteContainer'}>{data.map(i => <Card key={fKey += 1} i={i}/>)}</ul>
+        <ul className={'noteContainer'}>{entriesToShow.map(i => <Card key={fKey += 1} i={i}/>)}</ul>
       </div>
     )
   }
